@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * mq 发送消息 方法
  * @author pgy
  * @date 2021/1/14 5:36 下午
  **/

@@ -1,6 +1,8 @@
 package com.young.rabbitmq.demo1.consumer;
 
 /**
+ *
+ * AcknowledgeMode
  * @author pgy
  * @date 2021/1/14 6:10 下午
  **/

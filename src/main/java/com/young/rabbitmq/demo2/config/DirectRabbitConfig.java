@@ -24,7 +24,8 @@ public class DirectRabbitConfig {
         //   return new Queue("TestDirectQueue",true,true,false);
 
         //一般设置一下队列的持久化就好,其余两个就是默认false
-        return new Queue(RabbitMQConstant.DIRECT_EXCHANGE_QUEUE,true);
+        Queue queue = new Queue(RabbitMQConstant.DIRECT_EXCHANGE_QUEUE, true);
+        return queue;
     }
 
     //Direct交换机 起名：TestDirectExchange
@@ -41,10 +42,10 @@ public class DirectRabbitConfig {
 
 
 
-//    @Bean
-//    DirectExchange lonelyDirectExchange() {
-//        return new DirectExchange("lonelyDirectExchange");
-//    }
+    @Bean
+    DirectExchange lonelyDirectExchange() {
+        return new DirectExchange("lonelyDirectExchange");
+    }
 
 
 
