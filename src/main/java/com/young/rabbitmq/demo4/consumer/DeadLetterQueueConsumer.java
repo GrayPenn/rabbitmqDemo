@@ -1,6 +1,7 @@
 package com.young.rabbitmq.demo4.consumer;
 
 import com.rabbitmq.client.Channel;
+import com.young.rabbitmq.demo4.config.DelayedRabbitMQConfig;
 import com.young.rabbitmq.demo4.config.RabbitMQDelayConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -51,4 +52,24 @@ public class DeadLetterQueueConsumer {
 //        log.info("bbb消息properties：{}", message.getMessageProperties());
 //        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 //    }
+
+
+    @RabbitListener(queues = RabbitMQDelayConfig.DEAD_LETTER_QUEUEC_NAME)
+    public void receiveC(Message message, Channel channel) throws IOException {
+        String msg = new String(message.getBody());
+        log.info("当前时间：{},死信队列C收到消息：{}", new Date().toString(), msg);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+
+    @RabbitListener(queues = DelayedRabbitMQConfig.DELAYED_QUEUE_NAME)
+    public void receiveD(Message message, Channel channel) throws IOException {
+        String msg = new String(message.getBody());
+        log.info("当前时间：{},延时队列收到消息：{}", new Date().toString(), msg);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.young.rabbitmq.demo4.producer;
 
 import com.young.rabbitmq.demo4.common.DelayTypeEnum;
+import com.young.rabbitmq.demo4.config.DelayedRabbitMQConfig;
 import com.young.rabbitmq.demo4.config.RabbitMQDelayConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,19 @@ public class DelayMessageSender {
         }
     }
 
+    public void sendMsg(String msg, Integer delayTime) {
+        rabbitTemplate.convertAndSend(RabbitMQDelayConfig.DELAY_EXCHANGE_NAME, RabbitMQDelayConfig.DELAY_QUEUEC_ROUTING_KEY, msg, a ->{
+            a.getMessageProperties().setExpiration(String.valueOf(delayTime));
+            return a;
+        });
+    }
+
+    public void sendDelayMsg(String msg, Integer delayTime) {
+        rabbitTemplate.convertAndSend(DelayedRabbitMQConfig.DELAYED_EXCHANGE_NAME, DelayedRabbitMQConfig.DELAYED_ROUTING_KEY, msg, a ->{
+            a.getMessageProperties().setDelay(delayTime);
+            return a;
+        });
+    }
 
 
 

@@ -27,4 +27,18 @@ public class RabbitMQDelayMsgController {
         log.info("当前时间：{},收到请求，msg:{},delayType:{}", new Date(), msg, delayType);
         sender.sendMsg(msg, Objects.requireNonNull(DelayTypeEnum.getDelayTypeEnumByValue(delayType)));
     }
+
+
+    @RequestMapping("delayMsg")
+    public void delayMsg(String msg, Integer delayTime) {
+        log.info("当前时间：{},收到请求，msg:{},delayTime:{}", new Date(), msg, delayTime);
+        sender.sendMsg(msg, delayTime);
+    }
+
+    @RequestMapping("delayMsg2")
+    public void delayMsg2(String msg, Integer delayTime) {
+        log.info("当前时间：{},收到请求，msg:{},delayTime:{}", new Date(), msg, delayTime);
+        sender.sendDelayMsg(msg, delayTime);
+    }
+
 }
